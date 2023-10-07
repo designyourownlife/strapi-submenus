@@ -7,22 +7,29 @@ const Submenu = () => {
   const { pageId, setPageId } = useGlobalContext();
   const currentPage = sublinks.find((item) => item.pageId === pageId);
   const submenuContainer = useRef(null);
+  let timeoutId = null;
 
   const handleMouseLeave = (e) => {
     const { clientX, clientY } = e;
     const submenu = submenuContainer.current;
     const { left, right, bottom } = submenu.getBoundingClientRect();
-    console.log(clientX, clientY);
-    console.log(left, right, bottom);
+    timeoutId = null;
     if (clientX <= left || clientX >= right || clientY >= bottom) {
-      setPageId(null);
+      timeoutId = setTimeout(() => {
+        setPageId(null);
+      }, 600);
     }
+  };
+
+  const handleMouseEnter = () => {
+    clearTimeout(timeoutId);
   };
 
   return (
     <div
-      className={currentPage ? 'submenu show-submenu' : 'submenu'}
+      className={currentPage ? 'submenu show-submenu' : 'submenu hide-submenu'}
       onMouseLeave={handleMouseLeave}
+      onMouseEnter={handleMouseEnter}
       ref={submenuContainer}
     >
       <h5>{currentPage?.page}</h5>

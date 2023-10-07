@@ -476,6 +476,16 @@ Submenu
 .submenu {
   display: none;
 }
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    visibility: visible;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
 @media screen and (min-width: 992px) {
   .submenu {
     display: block;
@@ -490,7 +500,6 @@ Submenu
     transform-origin: top;
     perspective: 1000px;
     border-radius: var(--borderRadius);
-    visibility: hidden;
     opacity: 0;
     transition: transform 0.3s ease-in-out, opacity 0.22s ease-in-out;
     z-index: -1;
@@ -500,6 +509,12 @@ Submenu
     opacity: 1;
     transform: rotateX(0deg) translateX(-50%);
     z-index: 10;
+  }
+  .hide-submenu {
+    visibility: hidden;
+    animation: fadeOut 0.22s ease-in-out;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
   }
   .submenu h5 {
     margin-bottom: 1rem;
